@@ -35,6 +35,12 @@ export default {
     
     <section class="main-section">
         <div class="wrapper-cards">
+            <div class="cards" v-for="card in cardList">
+                <img :src="card.card_images.image_url" alt="">
+                <!-- <img src="https://images.ygoprodeck.com/images/cards/34541863.jpg" alt="" srcset=""> -->
+              {{card.card_images  }}
+             
+            </div>
 
         </div>
 
@@ -45,14 +51,21 @@ export default {
 <style scoped lang="scss">
 section.main-section{
     background-color: rgb(212, 143, 56);
-    padding: 10rem;
+    padding: 5rem;
    
 
     div.wrapper-cards{
         background-color: white;
-        height: 80vh;
+        
         margin: 0 auto;
-        max-width: 85%;
+        display: flex;
+        flex-wrap: wrap;
+       
+
+        div.cards{
+            width: calc((100% / 5)  );
+
+        }
     }
 }
 
