@@ -36,9 +36,8 @@ export default {
     <section class="main-section">
         <div class="wrapper-cards">
             <div class="cards" v-for="card in cardList">
-                <img :src="card.card_images.image_url" alt="">
-                <!-- <img src="https://images.ygoprodeck.com/images/cards/34541863.jpg" alt="" srcset=""> -->
-              {{card.card_images  }}
+                <img :src="card.card_images[0].image_url_small" alt="">
+              
              
             </div>
 
