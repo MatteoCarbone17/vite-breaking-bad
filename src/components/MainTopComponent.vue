@@ -4,7 +4,8 @@ export default {
     name:'MainTopComponent',
     data() {
         return {
-            value : 1 
+            value: null,
+          
         }
     },
     
@@ -13,9 +14,8 @@ export default {
 
 <template>
    <div>
-    <select v-model="value" @input="$emit('selectTypeArch', value)">
-        <option :value="null"> Select a ... </option>
-        <option v-for="option in options" :value="option.slug"> </option>
+    <select v-model="value" @change="$emit('selectTypeArch', value)">
+        <option> Select a </option>
     </select> 
    </div>
 </template>

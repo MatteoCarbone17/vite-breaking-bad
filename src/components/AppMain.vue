@@ -9,37 +9,38 @@ export default {
         return {
             store,
             cardList: [],
-            // ApiUrlArch: 'https://db.ygoprodeck.com/api/v7/cardinfo.php?archetype=laval&num=10&offset=0',
+            ArchList: [],
             ApiUrl: "https://db.ygoprodeck.com/api/v7/cardinfo.php?num=10&offset=0",
         };
     },
     methods: {
         getCard() {
             axios.get(this.ApiUrl, {
-                // params:{
-                //     archetype: searchArchetype,
-                // }
+               
             })
                 .then((response) => {
                 this.cardList = response.data.data;
                 console.log(this.cardList);
             });
         },
-        getArchetype(searchString){
+        getArchetype(value){
             axios.get(this.ApiUrl, {
                 params:{
-                    archetype:searchString ,
+                    archetype:value,
                 }
             })
-                .then((response) => {
-                this.cardList = response.data.data;
-                console.log(this.cardList);
-            });
+            .then((response) => {
+               this.ArchList = response.data.archetype;
+               console.log(this.ArchList);
+                console.log('funzione avviata getArchetype ')
+
+             });
 
         },
     },
     created() {
         this.getCard();
+        this.getArchetype();
     },
     components: {
         MainTopComponent,
@@ -49,13 +50,12 @@ export default {
 
 <template>
     <div>
-        <MainTopComponent @selectTypeArch="getArchetype(searchString)"/> 
+        <MainTopComponent @selectTypeArch="getArchetype(value)"/> 
         <section class="main-section">
             <div class="wrapper-cards">
                 <div class="cards" v-for="card in cardList">
                     <img :src="card.card_images[0].image_url_small" alt="">   
                 </div>
-    
             </div>
     
         </section>
