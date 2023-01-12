@@ -5,6 +5,9 @@ import AppHeader from './components/AppHeader.vue';
 
 
 export default {
+
+    
+
     components :{
         AppMain,
         AppHeader,
@@ -16,9 +19,10 @@ export default {
 
 
 <template>
-<AppHeader />
-<AppMain />
-
+    <div>
+        <AppHeader />
+        <AppMain /> 
+    </div>
 </template>
 
 <style lang="scss">

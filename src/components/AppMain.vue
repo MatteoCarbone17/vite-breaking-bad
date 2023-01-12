@@ -1,7 +1,7 @@
 <script>
 import { store } from "../store.js";
 import axios from "axios";
-// import MainTopComponent from "./MainTopComponent.vue";
+import MainTopComponent from "./MainTopComponent.vue";
 
 export default {
     name: "AppMain",
@@ -9,41 +9,57 @@ export default {
         return {
             store,
             cardList: [],
+            // ApiUrlArch: 'https://db.ygoprodeck.com/api/v7/cardinfo.php?archetype=laval&num=10&offset=0',
+            ApiUrl: "https://db.ygoprodeck.com/api/v7/cardinfo.php?num=10&offset=0",
         };
     },
     methods: {
         getCard() {
-            axios.get("https://db.ygoprodeck.com/api/v7/cardinfo.php?num=10&offset=0", {})
+            axios.get(this.ApiUrl, {
+                // params:{
+                //     archetype: searchArchetype,
+                // }
+            })
                 .then((response) => {
-                /* console.log(response.data.data) */
                 this.cardList = response.data.data;
                 console.log(this.cardList);
             });
-        }
+        },
+        getArchetype(searchString){
+            axios.get(this.ApiUrl, {
+                params:{
+                    archetype:searchString ,
+                }
+            })
+                .then((response) => {
+                this.cardList = response.data.data;
+                console.log(this.cardList);
+            });
+
+        },
     },
     created() {
         this.getCard();
     },
     components: {
-        //  MainTopComponent,
-         }
+        MainTopComponent,
+        }
 }
 </script>
 
 <template>
-    <!-- <MainTopComponent/> -->
+    <div>
+        <MainTopComponent @selectTypeArch="getArchetype(searchString)"/> 
+        <section class="main-section">
+            <div class="wrapper-cards">
+                <div class="cards" v-for="card in cardList">
+                    <img :src="card.card_images[0].image_url_small" alt="">   
+                </div>
     
-    <section class="main-section">
-        <div class="wrapper-cards">
-            <div class="cards" v-for="card in cardList">
-                <img :src="card.card_images[0].image_url_small" alt="">
-              
-             
             </div>
-
-        </div>
-
-    </section>
+    
+        </section>
+    </div>
    
 </template>
 
@@ -55,14 +71,11 @@ section.main-section{
 
     div.wrapper-cards{
         background-color: white;
-        
         margin: 0 auto;
         display: flex;
         flex-wrap: wrap;
-       
-
         div.cards{
-            width: calc((100% / 5)  );
+            width: calc((100% / 5) );
 
         }
     }
